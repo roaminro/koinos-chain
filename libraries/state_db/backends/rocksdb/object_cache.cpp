@@ -12,9 +12,8 @@ std::shared_ptr< const object_cache::value_type > object_cache::get( const key_t
    if ( itr == _object_map.end() )
       return std::shared_ptr< value_type >();
 
-   // Erase the entry from the list and push front
-   _lru_list.erase( itr->second.second );
-   _lru_list.push_front( k );
+   // Move the entry to the front of the list
+   _lru_list.splice( _lru_list.begin(), _lru_list, itr->second.second );
    auto val = itr->second.first;
 
    _object_map[ k ] = std::make_pair( val, _lru_list.begin() );
@@ -27,6 +26,7 @@ std::shared_ptr< const object_cache::value_type > object_cache::put( const key_t
    if ( auto itr = _object_map.find( k ); itr != _object_map.end() )
    {
       _cache_size -= itr->second.first->size();
+      _lru_list.erase( itr->second.second );
    }
 
    // If the cache is full, remove the last entry from the map and pop back

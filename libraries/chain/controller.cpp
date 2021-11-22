@@ -39,6 +39,35 @@ using namespace std::chrono_literals;
 using vectorstream = boost::interprocess::basic_vectorstream< std::vector< char > >;
 using fork_data    = std::pair< std::vector< block_topology >, block_topology >;
 
+// This can be replaced by default stream operator when gcc and clang have full C++20 std::format support
+template< typename Duration >
+std::string output_hh_mm_ss( const std::chrono::hh_mm_ss< Duration >& time )
+{
+   std::stringstream ss;
+   auto hours = time.hours().count();
+   auto days = hours / 24;
+   hours = hours % 24;
+   auto years = days / 365;
+   days = days % 365;
+
+   if ( years )
+   {
+      ss << years << "y, " << days << "d, ";
+   }
+   else if ( days )
+   {
+      ss << days << "d, ";
+   }
+
+   ss << std::setw(2) << std::setfill('0') << hours;
+   ss << std::setw(1) << "h, ";
+   ss << std::setw(2) << std::setfill('0') << time.minutes().count();
+   ss << std::setw(1) << "m, ";
+   ss << std::setw(2) << std::setfill('0') << time.seconds().count();
+   ss << std::setw(1) << "s";
+   return ss.str();
+}
+
 namespace detail {
 
 class controller_impl final
@@ -141,6 +170,7 @@ rpc::chain::submit_block_response controller_impl::submit_block(
 
    static constexpr uint64_t index_message_interval = 1000;
    static constexpr std::chrono::seconds time_delta = std::chrono::seconds( 5 );
+   static constexpr std::chrono::seconds live_delta = std::chrono::seconds( 60 );
 
    auto time_lower_bound  = uint64_t( 0 );
    auto time_upper_bound  = std::chrono::duration_cast< std::chrono::milliseconds >( ( now + time_delta ).time_since_epoch() ).count();
@@ -148,7 +178,7 @@ rpc::chain::submit_block_response controller_impl::submit_block(
 
    state_db::state_node_ptr block_node;
 
-   auto block        = request.block();
+   const auto& block = request.block();
    auto block_id     = util::converter::to< crypto::multihash >( block.id() );
    auto block_height = block.header().height();
    auto parent_id    = util::converter::to< crypto::multihash >( block.header().previous() );
@@ -156,7 +186,9 @@ rpc::chain::submit_block_response controller_impl::submit_block(
 
    if ( block_node ) return {}; // Block has been applied
 
-   if ( !index_to )
+   bool live = block.header().timestamp() > std::chrono::duration_cast< std::chrono::milliseconds >( ( now - live_delta ).time_since_epoch() ).count();
+
+   if ( !index_to && live )
    {
       LOG(info) << "Pushing block - Height: " << block_height << ", ID: " << block_id;
    }
@@ -236,7 +268,7 @@ rpc::chain::submit_block_response controller_impl::submit_block(
          KOINOS_ASSERT( resp.has_add_block(), koinos::exception, "unexpected response when submitting block: ${r}", ("r", resp) );
       }
 
-      if ( !index_to )
+      if ( !index_to && live )
       {
          auto num_transactions = block.transactions_size();
 
@@ -249,8 +281,16 @@ rpc::chain::submit_block_response controller_impl::submit_block(
       }
       else if ( block_height % index_message_interval == 0 )
       {
-         auto progress = block_height / static_cast< double >( index_to ) * 100;
-         LOG(info) << "Indexing chain (" << progress << "%) - Height: " << block_height << ", ID: " << block_id;
+         if ( index_to )
+         {
+            auto progress = block_height / static_cast< double >( index_to ) * 100;
+            LOG(info) << "Indexing chain (" << progress << "%) - Height: " << block_height << ", ID: " << block_id;
+         }
+         else
+         {
+            std::chrono::hh_mm_ss to_go( now.time_since_epoch() - std::chrono::milliseconds( block.header().timestamp() ) );
+            LOG(info) << "Synced block - Height: " << block_height << ", ID: " << block_id << " (" << output_hh_mm_ss( to_go ) << " remaining)";
+         }
       }
 
       auto output = ctx.get_pending_console_output();
