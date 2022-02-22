@@ -12,11 +12,18 @@ jobs:
     machine:
       image: ubuntu-2004:202010-01
     steps:
-      - checkout
-      - run: git submodule sync
-      - run: git submodule update --init
-      - cmake/install
-      - run: sudo apt install build-essentials libgmp
+      - run:
+          name: git
+          command: |
+            checkout
+            git submodule sync
+            git submodule update --init
+      - run:
+          name: Setup build environment
+          command: |
+            sudo apt-get install -yq --allow-downgrades libc6=2.31-0ubuntu9.2 libc6-dev=2.31-0ubuntu9.2
+            sudo -E apt-get -yq --no-install-suggests --no-install-recommends --allow-downgrades --allow-remove-essential --allow-change-held-packages install clang-11 llvm-11 -o Debug::pkgProblemResolver=yes
+      #- cmake/install
       - run:
           name: Setup cmake and build artifacts
           command: |
