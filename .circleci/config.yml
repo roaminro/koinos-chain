@@ -9,9 +9,8 @@ orbs:
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
   example-job:
-    docker:
-      # replace with your preferred image
-      - image: cimg/base:stable
+    machine:
+      image: ubuntu-2004:202010-01
     steps:
       - checkout
       - run: git submodule sync
