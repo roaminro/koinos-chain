@@ -17,6 +17,7 @@ jobs:
       - run: git submodule sync
       - run: git submodule update --init
       - cmake/install
+      - run: apt install build-essentials libgmp
       - run:
           name: Setup cmake and build artifacts
           command: |
