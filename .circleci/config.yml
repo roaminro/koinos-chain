@@ -12,10 +12,10 @@ jobs:
     machine:
       image: ubuntu-2004:202010-01
     steps:
+      - checkout
       - run:
           name: git
           command: |
-            checkout
             git submodule sync
             git submodule update --init
       - run:
