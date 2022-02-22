@@ -14,9 +14,8 @@ jobs:
       - image: cimg/base:stable
     steps:
       - checkout
-      - post:
-        - git submodule sync --recursive
-        - git submodule update --recursive --init
+      - run: git submodule sync
+      - run: git submodule update --init
       - cmake/install
       - run:
           name: Setup cmake and build artifacts
