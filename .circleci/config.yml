@@ -10,8 +10,8 @@ orbs:
 jobs:
   example-job:
     machine:
-      image: ubuntu-2004:202010-01
-    resource_class: small
+      image: ubuntu-1604:202104-01
+    resource_class: medium
     steps:
       - checkout
       - run:
