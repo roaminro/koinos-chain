@@ -15,18 +15,10 @@ jobs:
     steps:
       - checkout
       - cmake/install
-      - run:
-          name: mkdir build
-          command: 'mkdir build'
-      - run:
-          name: cd build
-          command: 'cd build'
-      - run:
-          name: cmake -DCMAKE_BUILD_TYPE=Release ..
-          command: 'cmake -DCMAKE_BUILD_TYPE=Release ..'    
-      - run:
-          name: make -j
-          command: 'make -j' 
+      - run: 'mkdir build'
+      - run: 'cd build'
+      - run: 'cmake -DCMAKE_BUILD_TYPE=Release ..'  
+      - run: 'make -j'
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
