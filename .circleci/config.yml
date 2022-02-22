@@ -14,14 +14,14 @@ jobs:
       - image: cimg/base:stable
     steps:
       - checkout
+      - post:
+        - git submodule sync --recursive
+        - git submodule update --recursive --init
       - cmake/install
-      - run:
-          name: Create build directories
-          command: |
-            mkdir -p build
       - run:
           name: Setup cmake and build artifacts
           command: |
+            mkdir -p build
             cd build
             cmake -DCMAKE_BUILD_TYPE=Release ..
             make -j
