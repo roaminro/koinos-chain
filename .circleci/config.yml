@@ -15,12 +15,19 @@ jobs:
     steps:
       - checkout
       - cmake/install
-      - run: 'mkdir build'
-      - run: 'cd build'
-      - run: 'pwd'
-      - run: 'ls'
-      - run: 'cmake -DCMAKE_BUILD_TYPE=Release ..'  
-      - run: 'make -j'
+      - run:
+          name: Create build directories
+          command: |
+            mkdir -p build
+      - run:
+          name: Setup cmake and build artifacts
+          command: |
+            cd build
+            cmake -DCMAKE_BUILD_TYPE=Release ..
+            make -j
+      - persist_to_workspace: #(6)
+          root: .
+          paths: [build]
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
