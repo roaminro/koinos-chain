@@ -18,6 +18,7 @@ jobs:
       - run: 'mkdir build'
       - run: 'cd build'
       - run: 'pwd'
+      - run: 'ls'
       - run: 'cmake -DCMAKE_BUILD_TYPE=Release ..'  
       - run: 'make -j'
 
