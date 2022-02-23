@@ -56,7 +56,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 set(Boost_NO_BOOST_CMAKE ON)
-set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 if (MSVC)
     # warning level 4 and all warnings as errors
