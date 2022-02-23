@@ -22,7 +22,7 @@ jobs:
           name: Install CMAKE
           command: |
             sudo apt-get update
-            sudo apt install -y cmake build-essential libgmp-dev clang-12
+            sudo apt install -y cmake build-essential libicu-dev libgmp-dev clang-12
       #- cmake/install
       - run:
           name: Setup cmake and build artifacts
