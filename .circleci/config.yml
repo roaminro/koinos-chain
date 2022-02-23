@@ -10,7 +10,7 @@ orbs:
 jobs:
   example-job:
     docker:
-      - image: "cimg/base"
+      - image: "cimg/node:16.14.0"
     steps:
       - checkout
       - run:
