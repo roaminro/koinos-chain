@@ -16,3 +16,4 @@ add_library(koinos_chain_lib
 target_link_libraries(koinos_chain_lib Koinos::state_db Koinos::exception Koinos::crypto Koinos::log Koinos::util Koinos::mq Koinos::vm_manager)
 target_include_directories(koinos_chain_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 add_library(Koinos::chain ALIAS koinos_chain_lib)
+set_property(TARGET koinos_chain_lib PROPERTY POSITION_INDEPENDENT_CODE ON)
