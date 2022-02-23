@@ -20,7 +20,7 @@ jobs:
             git submodule update --init
       - run:
           name: Install CMAKE
-          command: 'sudo apt-get update && sudo apt-get install -y cmake'
+          command: 'sudo apt-get update && sudo apt-get install -y cmake && sudo apt install clang-12'
       #- cmake/install
       - run:
           name: Setup cmake and build artifacts
