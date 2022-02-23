@@ -27,6 +27,7 @@ jobs:
       - run:
           name: Setup cmake and build artifacts
           command: |
+            export LD_LIBRARY_PATH=/usr/local/lib
             mkdir -p build
             cd build
             cmake -DCMAKE_BUILD_TYPE=Release ..
