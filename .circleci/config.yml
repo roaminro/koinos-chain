@@ -9,9 +9,8 @@ orbs:
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
   example-job:
-    machine:
-      image: ubuntu-1604:202104-01
-    resource_class: medium
+    docker:
+      - image: "debian:stretch"
     steps:
       - checkout
       - run:
@@ -20,13 +19,11 @@ jobs:
             git submodule sync
             git submodule update --init
       - run:
-          name: Setup build environment
-          command: |
-            wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
-            sudo apt-add-repository "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-11 main"
-            sudo apt-get update
-            sudo apt-get install -yq --allow-downgrades libc6 libc6-dev
-            sudo -E apt-get -yq --no-install-suggests --no-install-recommends --allow-downgrades --allow-remove-essential --allow-change-held-packages install clang-11 llvm-11 -o Debug::pkgProblemResolver=yes
+          name: Installing GCC
+          command: 'apt-get update && apt-get install -y gcc g++'
+      - run:
+          name: Install CMAKE
+          command: 'apt-get update && sudo apt-get install -y cmake'
       #- cmake/install
       - run:
           name: Setup cmake and build artifacts
