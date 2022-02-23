@@ -10,7 +10,7 @@ orbs:
 jobs:
   example-job:
     docker:
-      - image: "debian:stretch"
+      - image: "cimg/base"
     steps:
       - checkout
       - run:
