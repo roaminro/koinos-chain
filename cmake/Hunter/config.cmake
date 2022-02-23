@@ -12,7 +12,7 @@ hunter_config(Protobuf
    CMAKE_ARGS
       CMAKE_CXX_FLAGS=-fvisibility=hidden
       CMAKE_C_FLAGS=-fvisibility=hidden
-      BUILD_SHARED_LIBS=ON
+      protobuf_BUILD_SHARED_LIBS=ON
 )
 
 hunter_config(rocksdb
