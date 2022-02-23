@@ -11,8 +11,6 @@ if(CCACHE_PROGRAM)
 endif()
 
 option(HUNTER_RUN_UPLOAD "Upload Hunter packages to binary cache server" OFF)
-option(BUILD_SHARED_LIBS "Build shared libraries" ON)
-
 
 set(
    HUNTER_CACHE_SERVERS
@@ -126,4 +124,4 @@ find_package(koinos_util CONFIG REQUIRED)
 
 add_subdirectory(programs)
 add_subdirectory(libraries)
-#add_subdirectory(tests)
+add_subdirectory(tests)
