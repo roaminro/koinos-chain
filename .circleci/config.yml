@@ -31,9 +31,8 @@ jobs:
             cd build
             cmake -DCMAKE_BUILD_TYPE=Release ..
             make -j
-      - persist_to_workspace: #(6)
-          root: .
-          paths: [build]
+      - store_artifacts:
+          path: build
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
