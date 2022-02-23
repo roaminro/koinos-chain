@@ -13,6 +13,7 @@ endif()
 option(HUNTER_RUN_UPLOAD "Upload Hunter packages to binary cache server" OFF)
 option(BUILD_SHARED_LIBS "Build shared libraries" ON)
 
+
 set(
    HUNTER_CACHE_SERVERS
    "https://github.com/koinos/hunter-cache"
