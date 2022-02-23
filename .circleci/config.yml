@@ -23,14 +23,13 @@ jobs:
           command: |
             sudo apt-get update
             sudo apt install -y cmake build-essential libicu-dev libgmp-dev clang-12
+            npm install
       #- cmake/install
       - run:
           name: Setup cmake and build artifacts
           command: |
             mkdir -p build
-            cd build
-            cmake -DCMAKE_BUILD_TYPE=Release ..
-            make -j
+            npm run compile
       - store_artifacts:
           path: build
 

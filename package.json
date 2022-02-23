@@ -1,0 +1,14 @@
+{
+  "name": "koinos-chain",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/roaminroe/koinos-chain.git",
+  "license": "MIT",
+  "scripts": {
+    "compile": "cmake-js compile --config Release"
+  },
+  "devDependencies": {
+    "cmake-js": "^6.3.0",
+    "node-addon-api": "^4.3.0"
+  }
+}

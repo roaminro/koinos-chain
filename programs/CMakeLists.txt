@@ -1,2 +1,3 @@
-add_subdirectory(koinos_chain)
-add_subdirectory(koinos_vm_driver)
+#add_subdirectory(koinos_chain)
+add_subdirectory(koinos_mock_chain)
+#add_subdirectory(koinos_vm_driver)
