@@ -19,9 +19,6 @@ jobs:
             git submodule sync
             git submodule update --init
       - run:
-          name: Installing GCC
-          command: 'apt-get update && apt-get install -y gcc g++'
-      - run:
           name: Install CMAKE
           command: 'apt-get update && sudo apt-get install -y cmake'
       #- cmake/install
