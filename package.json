@@ -5,7 +5,7 @@
   "repository": "https://github.com/roaminroe/koinos-chain.git",
   "license": "MIT",
   "scripts": {
-    "compile": "cmake-js compile --config Release --DCMAKE_CXX_FLAGS=\"-fpic\""
+    "compile": "cmake-js compile --config Release"
   },
   "devDependencies": {
     "cmake-js": "^6.3.0",
