@@ -32,7 +32,7 @@ jobs:
             mkdir -p build
             npm run compile
       - store_artifacts:
-          path: build
+          path: build/Release/koinos_mock_chain.node
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
