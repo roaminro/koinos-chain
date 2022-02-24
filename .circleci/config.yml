@@ -11,7 +11,7 @@ jobs:
   example-job:
     docker:
       - image: "cimg/node:16.14.0"
-    resource_class: xlarge
+    resource_class: large
     steps:
       - checkout
       - run:
@@ -23,7 +23,7 @@ jobs:
           name: Install CMAKE
           command: |
             sudo apt-get update
-            sudo apt install -y cmake build-essential libicu-dev libgmp-dev clang-12
+            sudo apt install -y cmake build-essential libicu-dev libgmp-dev
             npm install
       #- cmake/install
       - run:
