@@ -10,9 +10,16 @@ jobs:
       shell: powershell.exe
     steps:
       - checkout
-      - run: systeminfo
       - run:
-          name: "Check docker"
+          name: "Install cmake"
           shell: powershell.exe
           command: |
             choco install cmake --pre
+      - run:
+          name: "Build koinos chain"
+          shell: powershell.exe
+          command: |
+            mkdir build
+            cd build
+            cmake -DCMAKE_BUILD_TYPE=Release ..
+            make -j
