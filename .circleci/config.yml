@@ -22,4 +22,4 @@ jobs:
           command: |
             mkdir build
             cd build
-            cmake --build . -DCMAKE_BUILD_TYPE=Release ..
+            cmake --build .. --target github-cli-release --config Release
