@@ -1,0 +1,1 @@
+docker run --name koinos-mock-chain -v /Users//Documents/blockchain/koinos-chain-r/:/src -d -t -i cimg/node:16.14.0 /bin/bash

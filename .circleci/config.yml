@@ -14,7 +14,7 @@ jobs:
           name: "Install cmake"
           shell: powershell.exe
           command: |
-            choco install cmake --pre
+            choco install cmake.install --installargs '"ADD_CMAKE_TO_PATH=System"'
       - run:
           name: "Build koinos chain"
           shell: powershell.exe
