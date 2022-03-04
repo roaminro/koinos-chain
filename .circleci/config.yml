@@ -11,10 +11,11 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Install cmake"
+          name: "Install cmake and make"
           shell: powershell.exe
           command: |
             choco install cmake.install --installargs '"ADD_CMAKE_TO_PATH=System"'
+            choco install make
       - run:
           name: "Build koinos chain"
           shell: powershell.exe
