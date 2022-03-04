@@ -22,4 +22,4 @@ jobs:
           command: |
             mkdir build
             cd build
-            cmake --build .. --target github-cli-release --config Release
+            cmake --build .. --config Release
