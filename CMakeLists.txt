@@ -31,6 +31,8 @@ set(
    "Hunter passwords"
 )
 
+set(HUNTER_GIT_SELF_IGNORE_UNTRACKED ON)
+
 include("cmake/HunterGate.cmake")
 
 HunterGate(
