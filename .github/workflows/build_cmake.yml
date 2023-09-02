@@ -21,7 +21,7 @@ jobs:
 
     - name: build
       run: |
-        apt install build-essentials libgmp cmake
+        sudo apt install build-essentials libgmp cmake
         mkdir build
         cd build
         cmake -DCMAKE_BUILD_TYPE=Release ..
