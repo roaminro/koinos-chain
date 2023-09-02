@@ -52,7 +52,7 @@ jobs:
         make -j       
 
     - name: Archive artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          path: |
-            build
+      uses: actions/upload-artifact@v3
+      with:
+        path: |
+          build
