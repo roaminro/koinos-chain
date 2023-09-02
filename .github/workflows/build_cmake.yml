@@ -17,11 +17,10 @@ jobs:
 
     - uses: actions/checkout@v3
 
-    - name: config
+    - name: buidld
       run: |
         mkdir build
         cd build
-        cmake -DCMAKE_BUILD_TYPE=Release ..        
+        cmake -DCMAKE_BUILD_TYPE=Release ..
+        make -j       
 
-    - name: build
-      run: make -j
