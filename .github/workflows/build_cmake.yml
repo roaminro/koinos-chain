@@ -1,17 +1,16 @@
 name: CMake Build Matrix
 
+on: [push, pull_request]
+
 env:
-  CTEST_NO_TESTS_ACTION: error
   HOMEBREW_NO_INSTALL_CLEANUP: 1
 
-on: [push, pull_request]
 
 jobs:
   build:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        shared: [true]
 
     runs-on: ${{ matrix.os }}
 
