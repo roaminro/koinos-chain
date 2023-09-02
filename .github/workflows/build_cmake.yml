@@ -4,15 +4,7 @@ env:
   CTEST_NO_TESTS_ACTION: error
   HOMEBREW_NO_INSTALL_CLEANUP: 1
 
-on:
-  push:
-    paths:
-      - "**.c"
-      - "**.cpp"
-      - "**.h"
-      - "**/CMakeLists.txt"
-      - "**.cmake"
-      - ".github/workflows/build_cmake.yml"
+on: [push, pull_request]
 
 jobs:
 
