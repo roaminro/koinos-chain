@@ -11,32 +11,41 @@ jobs:
       matrix:
         os: [ubuntu-latest]
 
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
 
     steps:
+
+    - name: Cache Hunter packages
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.hunter
+        key: ${{ runner.os }}
 
     - uses: actions/checkout@v3
     - name: Checkout submodules
       run: git submodule update --init --recursive
 
+    # - name: prepare
+    #   run: |
+    #     sudo apt-get update && export UBUNTU_FRONTEND=noninteractive && sudo apt-get -y install --no-install-recommends  \
+    #     gcc \
+    #     g++ \
+    #     ccache \
+    #     musl-dev \
+    #     linux-headers-amd64 \
+    #     libgmp-dev \
+    #     cmake \
+    #     make \
+    #     git \
+    #     perl \
+    #     python3 \
+    #     python3-pip \
+    #     python3-setuptools && \
+    #     pip3 install --user dataclasses_json Jinja2 importlib_resources pluginbase gitpython
+    
     - name: build
       run: |
-        apt-get update && export UBUNTU_FRONTEND=noninteractive
-        apt-get -y install --no-install-recommends  \
-        gcc \
-        g++ \
-        ccache \
-        musl-dev \
-        linux-headers-amd64 \
-        libgmp-dev \
-        cmake \
-        make \
-        git \
-        perl \
-        python3 \
-        python3-pip \
-        python3-setuptools && \
-        pip3 install --user dataclasses_json Jinja2 importlib_resources pluginbase gitpython
         mkdir build
         cd build
         cmake -DCMAKE_BUILD_TYPE=Release ..
