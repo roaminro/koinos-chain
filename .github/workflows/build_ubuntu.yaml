@@ -46,7 +46,7 @@ jobs:
         mkdir build
         cd build
         cmake -DCMAKE_BUILD_TYPE=Release ..
-        make -j
+        cmake --build . --target all
 
     - name: Archive artifacts
       uses: actions/upload-artifact@v3
