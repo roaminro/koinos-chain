@@ -40,7 +40,10 @@ jobs:
     #     python3-pip \
     #     python3-setuptools && \
     #     pip3 install --user dataclasses_json Jinja2 importlib_resources pluginbase gitpython
-    
+    - name: install gmp
+      run: |
+        vcpkg install gmp
+
     - name: build
       run: |
         mkdir build
