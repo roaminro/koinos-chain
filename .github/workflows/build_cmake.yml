@@ -49,7 +49,7 @@ jobs:
         mkdir build
         cd build
         cmake -DCMAKE_BUILD_TYPE=Release ..
-        make -j       
+        make -j 2
 
     - name: Archive artifacts
       uses: actions/upload-artifact@v3
